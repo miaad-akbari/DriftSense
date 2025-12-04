@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+  namespace: storefront
+data:
+  FEATURE_FLAG_SEARCH: "true"
+  LOG_LEVEL: debug
+  PAYMENT_PROVIDER: stripe
+  ROLLBACK_WINDOW_HOURS: "48"
