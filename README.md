@@ -61,7 +61,7 @@ The repository contains an example `sample_manifests` folder showing a Deploymen
 1. Integrate live-cluster discovery through `kubectl` or the Kubernetes Python client.
 2. Add Prometheus exporter mode for long-running drift guardians.
 3. Publish Docker image & GitHub Action for turnkey adoption.
-4. Extend drift policies with severity levels and overrides per namespace.
+4. Extend drift policies with severity levels and overrides per namespace. 
 
 ---
 
