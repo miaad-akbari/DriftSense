@@ -9,3 +9,4 @@ build/
 dist/
 .trash/
 tests_root_old/
+src_root_owned/

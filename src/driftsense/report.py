@@ -4,41 +4,33 @@ from __future__ import annotations
 
 from typing import Iterable, List
 
-from rich.console import Console
-from rich.panel import Panel
-from rich.syntax import Syntax
-from rich.table import Table
-
 from .diff_engine import DriftReport, ManifestRecord
 
 
-def _format_records(records: Iterable[ManifestRecord]) -> Table:
-    table = Table(box=None)
-    table.add_column("Resource")
-    table.add_column("Source", style="dim")
-    for record in records:
-        table.add_row(record.key.human(), record.source)
-    return table
+def _format_records_list(records: Iterable[ManifestRecord]) -> List[str]:
+    return [f"- {record.key.human()} ({record.source})" for record in records]
 
 
-def print_text_report(report: DriftReport, console: Console) -> None:
+def render_text(report: DriftReport) -> str:
     if not report.has_drift():
-        console.print("[bold green]No drift detected.[/bold green]")
-        return
+        return "No drift detected."
 
-    console.print("[bold yellow]Drift detected![/bold yellow]")
+    lines: List[str] = ["Drift detected!"]
     if report.missing:
-        console.print(Panel(_format_records(report.missing), title="Missing in cluster"))
+        lines.append("\nMissing in cluster:")
+        lines.extend(_format_records_list(report.missing))
     if report.extra:
-        console.print(Panel(_format_records(report.extra), title="Unexpected in cluster"))
+        lines.append("\nUnexpected in cluster:")
+        lines.extend(_format_records_list(report.extra))
     if report.changed:
+        lines.append("\nChanged resources:")
         for changed in report.changed:
-            console.rule(f"Changed: {changed.key.human()}")
-            console.print(f"Desired: {changed.desired_source}")
-            console.print(f"Actual : {changed.actual_source}")
-            console.print(
-                Syntax(changed.diff or "No diff available", "diff", theme="monokai", background_color="default")
+            lines.append(
+                f"- {changed.key.human()} :: desired {changed.desired_source} vs actual {changed.actual_source}"
             )
+            if changed.diff:
+                lines.append(changed.diff)
+    return "\n".join(lines)
 
 
 def render_markdown(report: DriftReport) -> str:

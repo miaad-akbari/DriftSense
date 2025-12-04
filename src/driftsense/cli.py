@@ -6,8 +6,6 @@ import argparse
 import sys
 from typing import List
 
-from rich.console import Console
-
 from . import diff_engine, manifest_loader, report
 
 
@@ -42,7 +40,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def handle_scan(args: argparse.Namespace, console: Console) -> int:
+def handle_scan(args: argparse.Namespace) -> int:
     desired_dir = manifest_loader.ensure_directory(args.desired_dir)
     actual_dir = manifest_loader.ensure_directory(args.actual_dir)
 
@@ -57,11 +55,11 @@ def handle_scan(args: argparse.Namespace, console: Console) -> int:
     )
 
     if args.format == "text":
-        report.print_text_report(drift_report, console)
+        print(report.render_text(drift_report))
     elif args.format == "markdown":
-        console.print(report.render_markdown(drift_report))
+        print(report.render_markdown(drift_report))
     elif args.format == "json":
-        console.print_json(data=drift_report.to_dict())
+        print(drift_report.to_json())
 
     if args.fail_on_drift and drift_report.has_drift():
         return 1
@@ -71,10 +69,8 @@ def handle_scan(args: argparse.Namespace, console: Console) -> int:
 def main(argv: List[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    console = Console()
-
     if args.command == "scan":
-        return handle_scan(args, console)
+        return handle_scan(args)
     parser.print_help()
     return 1
 
