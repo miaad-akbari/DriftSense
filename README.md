@@ -31,6 +31,10 @@ driftsense scan <desired_dir> <actual_dir> \
   [--ignore-kind KindA --ignore-kind KindB] \
   [--fail-on-drift]
 ```
+## Run Unittest
+```
+python -m unittest discover -s tests 
+```
 
 - `desired_dir` – Checkout of your GitOps repo or Helm template output.
 - `actual_dir` – Snapshot collected from the cluster (e.g., `kubectl get all -o yaml` per namespace).
