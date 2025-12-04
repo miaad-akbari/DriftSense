@@ -1,0 +1,18 @@
+[project]
+name = "driftsense"
+version = "0.1.0"
+description = "Kubernetes drift detection CLI for GitOps and DevOps teams"
+authors = [{ name = "Miad", email = "miad@example.com" }]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "PyYAML>=6.0",
+    "rich>=13.7.0"
+]
+
+[project.scripts]
+driftsense = "driftsense.cli:main"
+
+[build-system]
+requires = ["setuptools>=67", "wheel"]
+build-backend = "setuptools.build_meta"
