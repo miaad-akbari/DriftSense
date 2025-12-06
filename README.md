@@ -6,11 +6,11 @@ DriftSense is a batteries-included DevOps companion that continuously scans Kube
 
 ## Features
 
-- 🔍 **Deep manifest comparison** – normalizes Kubernetes objects and pinpoints spec-level differences using readable diffs.
-- 🛡️ **Drift policies** – mark kinds to ignore (e.g., `Event`, `Lease`) while auditing critical workloads.
-- 🧾 **Multiple report modes** – stdout with ANSI colors, Markdown tables for pull requests, or JSON for bots and dashboards.
-- 🧪 **Sample data & tests** – ship-ready fixtures make it easy to demo or extend the tool.
-- ⚙️ **CI ready** – `--fail-on-drift` lets you fail pipelines if unauthorized changes are detected.
+-  **Deep manifest comparison** – normalizes Kubernetes objects and pinpoints spec-level differences using readable diffs.
+-  **Drift policies** – mark kinds to ignore (e.g., `Event`, `Lease`) while auditing critical workloads.
+-  **Multiple report modes** – stdout with ANSI colors, Markdown tables for pull requests, or JSON for bots and dashboards.
+-  **Sample data & tests** – ship-ready fixtures make it easy to demo or extend the tool.
+-  **CI ready** – `--fail-on-drift` lets you fail pipelines if unauthorized changes are detected.
 
 ## Quick start
 
